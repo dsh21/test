@@ -1,0 +1,91 @@
+body {
+  padding-top: 50px;
+}
+
+.jumbotron {
+    background:url(../images/bg.jpg)
+}
+
+footer {
+    background:#f4f4f4;
+    height:40px;
+    text-align: center;
+    margin-top:30px;
+    padding-top: 10px;
+    overflow: auto;    
+}
+
+.mytable tbody tr td{
+  max-width:50px; /* Customise it accordingly */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.yellow {
+  background-color: #fea;
+}
+
+.red {
+  background-color: #ff5722;
+}
+
+.blue {
+  background-color: #ad7;
+}
+
+.rate_header {
+  width: 120px;
+  text-align: -webkit-center;
+}
+
+.rate_contents {
+  width: 120px;
+  text-align: -webkit-right;
+}
+
+.lg-title_header {
+  width: 240px;
+  text-align: -webkit-center;
+}
+
+.lg-title_contents {
+  width: 240px;
+}
+
+.sm-title_header {
+  width: 120px;
+  text-align: -webkit-center;
+}
+
+.sm-title_contents {
+  width: 120px;
+}
+
+.no_header {
+  width: 30px;
+  text-align: -webkit-center;
+}
+
+.no_contents {
+  width: 30px;
+}
+
+.table-overflow { overflow: scroll; }
+
+tr {
+  width: 100%;
+  display: inline-table;
+  table-layout: fixed;
+}
+
+table{
+  height:200px;              
+  display: -moz-groupbox;    
+}
+tbody{
+  overflow-y: scroll;      
+  height: 150px;            
+  width: 100%;
+  position: absolute;
+}

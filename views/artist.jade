@@ -1,0 +1,70 @@
+extends layout
+
+block content
+    link(rel='stylesheet', href='/stylesheets/jquery.tagsinput.css')
+    script(src='/javascripts/jquery.tagsinput.js')    
+    script(src='https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js')
+
+    script(src='http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js')
+    script(src='http://cdn.oesmith.co.uk/morris-0.5.0.min.js')
+    link(rel='stylesheet', href='http://cdn.oesmith.co.uk/morris-0.4.3.min.css')
+    
+    
+    .container(ng-app="app_artist", ng-controller="ctr_artist", ng-cloak='')
+        .row
+            .col-md-12
+                label 
+        .row
+            .col-md-12
+                form.form-inline(method='post')
+                    .form-group
+                        input.form-control(id='id_searchText', name='id_searchText',
+                            ng-keyup="$event.keyCode == 13 ? searchClick() : null", 
+                            type='text', placeholder='Search artist...', ng-model='searchText')
+                        input.btn.btn-default(type='button', value='Search', ng-click='searchClick()')
+   
+        .row
+            .col-md-6
+                .table-responsive
+                    table.table.mytable
+                        thead
+                            th(class='no_header') #
+                            th(class='lg-title_header') Artist
+                            th(class='rate_header') popularity
+                        tbody
+                            tr(ng-repeat="row in artists", style="cursor:pointer", ng-click='rowClick($index)')
+                                td(id='col_index_{{$index}}', class='no_contents') {{$index + 1}}
+                                td(id='col_name_{{$index}}', class='lg-title_contents') {{row.name}}
+                                td(id='col_name_{{$index}}', class='rate_contents', ng-class="row.popularity >= 10 ? 'red' : (row.popularity >= 5 ? 'blue' : 'yellow')") {{row.popularity}}
+
+            .col-md-6
+                div(id="popularity_chart", style="height: 250px; width: 100%;")                    
+        .row
+            .col-md-12
+                .table-responsive
+                    table.table.mytable
+                        thead
+                            th(class='no_header') #
+                            th(class='lg-title_header', style='text-align: -webkit-center') Song
+                            th(class='lg-title_header') artist info
+                            th(class='rate_header') weeks in chart
+                            th(class='rate_header hidden-sm hidden-xs') chart value
+                            th(class='sm-title_header') chart year
+                            th(class='sm-title_header') youtube                            
+                        tbody
+                            tr(ng-repeat="row in songs", style="cursor:pointer", ng-click='drawChart($index)')
+                                td(id='col_index_{{$index}}', class='no_contents') {{$index + 1}}
+                                td(id='col_name_{{$index}}', class='lg-title_contents') {{row.name}}
+                                td(id='col_name_{{$index}}', class='lg-title_contents') {{row.artists_meta}}
+                                td(id='col_name_{{$index}}', class='rate_contents', ng-class="row.cnt >= 20 ? 'red' : (row.cnt >= 10 ? 'blue' : 'yellow')") {{row.cnt}}
+                                td(id='col_name_{{$index}}', class='rate_contents hidden-sm hidden-xs', ng-class="row.chart_point <= 33 ? 'red' : (row.chart_point <= 66 ? 'blue' : 'yellow')") {{row.chart_point}}
+                                td(id='col_name_{{$index}}', class='sm-title_contents', style='text-align: -webkit-center') {{row.chart_year}}
+                                td(class='sm-title_contents', style='text-align: -webkit-center')
+                                    a(target='_blank', ng-href='https://www.youtube.com/results?search_query=%09{{row.name}}+{{row.artists_meta}}%09') Link
+        .row
+            .col-md-6
+                span.badge(style="cursor:pointer", ng-repeat="item in collaborators", ng-click="artistClick(item.name)") {{item.name}}
+            .col-md-6
+                div(id="chart", style="height: 250px; width: 100%;")
+
+    script(src='/javascripts/artist.js')
